@@ -27,10 +27,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(ListDelcampeAuctions::class)->hourlyAt(0);
+        $schedule->command(ListDelcampeAuctions::class)->hourlyAt(38);
         $schedule->command(ListDelcampeFixedPrice::class)->hourlyAt(5);
-        // $schedule->command('inspire')
-        //          ->hourly();
+        /*$schedule->command(ListDelcampeAuctions::class)->everyMinute();
+        $schedule->command(ListDelcampeFixedPrice::class)->everyMinute();*/
     }
 
     /**

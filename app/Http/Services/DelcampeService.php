@@ -128,4 +128,30 @@ class DelcampeService
         }
         fclose($file);
     }
+
+    public function getNotificationConfig()
+    {
+        $response = $this->client->get('http://rest.delcampe.net/notification/settings',
+            ['query' => [
+                'token' => $this->token,
+            ]
+        ]);
+
+        dd($response->getBody()->getContents());
+    }
+
+    public function setNotificationSetting($type) {
+        $response = $this->client->post('http://rest.delcampe.net/notification/settings', [
+            'query' => [
+                'token' => $this->token,
+            ],
+            'form_params' => [
+                'notificationType' => $type,
+                'destination'      => 'http://b58d239c.ngrok.io/endpoint/delcampe/items/update/my-super-token'
+            ],
+            'debug' => true
+        ]);
+
+        dd($response->getBody()->getContents());
+    }
 }

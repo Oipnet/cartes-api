@@ -12,8 +12,11 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.7.*",
+        "laravel/horizon": "^2.0",
+        "laravel/telescope": "^1.0",
         "laravel/tinker": "^1.0",
-        "orchestra/parser": "^3.7"
+        "orchestra/parser": "^3.7",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

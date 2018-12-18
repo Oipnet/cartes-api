@@ -19,3 +19,21 @@ Route::get('/auctions', function() {
 Route::get('/fixed-prices', function() {
     return \Illuminate\Support\Facades\Storage::download('fixedprices.csv');
 })->name('fixedprices');
+
+Route::get('/test', function() {
+    app(\App\Http\Services\DelcampeService::class)->getNotificationConfig();
+    //app(\App\Http\Services\DelcampeService::class)->setNotificationSetting('Curl_Seller_Item_Update');
+});
+
+Route::post('/endpoint/delcampe/items/update/{token}', function(\Illuminate\Http\Request $request) {
+    $logfileName = storage_path().'/app/log/feedbackFromDelcampeApi' . date('Ymd') . '.log';
+
+    if (isset($_POST['delcampeNotification'])) {
+        $dataWrite = $_POST['delcampeNotification'];
+    }
+
+    $logFileHandler = fopen($logfileName, 'a');
+    //chmod ($logFileHandler, 0666);
+    fwrite($logFileHandler, date('H:i:s') . ' | ' . var_dump($request) . "\n");
+    fclose($logFileHandler);
+});
