@@ -12,13 +12,13 @@ use Orchestra\Parser\Xml\Facade as XmlParser;
 |
 */
 
-Route::get('/', 'HomeController');
+Route::get('/', 'HomeController')->middleware('auth');
 Route::get('/auctions', function() {
     return \Illuminate\Support\Facades\Storage::download('auctions.csv');
-})->name('auctions');
+})->name('auctions')->middleware('auth');
 Route::get('/fixed-prices', function() {
     return \Illuminate\Support\Facades\Storage::download('fixedprices.csv');
-})->name('fixedprices');
+})->name('fixedprices')->middleware('auth');
 
 Route::get('/test', function() {
     app(\App\Http\Services\DelcampeService::class)->getNotificationConfig();
@@ -37,3 +37,4 @@ Route::post('/endpoint/delcampe/items/update/{token}', function(\Illuminate\Http
     fwrite($logFileHandler, date('H:i:s') . ' | ' . var_dump($request) . "\n");
     fclose($logFileHandler);
 });
+Auth::routes(['register' => false]);

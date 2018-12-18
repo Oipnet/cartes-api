@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: arnaud
- * Date: 17/12/18
- * Time: 11:40
- */
 
 namespace App\Http\Controllers;
 
@@ -20,7 +14,6 @@ class HomeController
 
     public function __construct(Factory $view)
     {
-
         $this->view = $view;
     }
 
