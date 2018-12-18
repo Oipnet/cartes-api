@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Console\Commands\ListDelcampeAuctions;
 use App\Console\Commands\ListDelcampeFixedPrice;
+use App\Console\Commands\ListDelcampeNotificationConfiguration;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -16,7 +17,8 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         ListDelcampeAuctions::class,
-        ListDelcampeFixedPrice::class
+        ListDelcampeFixedPrice::class,
+        ListDelcampeNotificationConfiguration::class
     ];
 
     /**
@@ -27,8 +29,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(ListDelcampeAuctions::class)->hourlyAt(38);
-        $schedule->command(ListDelcampeFixedPrice::class)->hourlyAt(5);
+        $schedule->command(ListDelcampeAuctions::class)->hourlyAt(5);
+        $schedule->command(ListDelcampeFixedPrice::class)->hourlyAt(10);
+        $schedule->command(ListDelcampeNotificationConfiguration::class)->dailyAt(0);
         /*$schedule->command(ListDelcampeAuctions::class)->everyMinute();
         $schedule->command(ListDelcampeFixedPrice::class)->everyMinute();*/
     }

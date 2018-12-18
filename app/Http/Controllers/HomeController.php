@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Item;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Response;
 
@@ -19,6 +20,8 @@ class HomeController
 
     public function __invoke()
     {
-        return $this->view->make('homepage');
+        $countItems = Item::all()->count();
+
+        return $this->view->make('homepage', compact('countItems'));
     }
 }

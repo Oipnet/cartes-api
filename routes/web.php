@@ -13,6 +13,11 @@ use Orchestra\Parser\Xml\Facade as XmlParser;
 */
 
 Route::get('/', 'HomeController')->middleware('auth');
+Route::get('/configuration/notification', 'Configuration\\ListNotificationController')->name('notification_index')->middleware('auth');
+Route::delete('/configuration/notification/{id}', 'Configuration\\DeleteNotificationController')->name('notification_delete')->middleware('auth');
+Route::get('/configuration/notification/{id}', 'Configuration\\UpdateNotificationController')->name('notification_edit')->middleware('auth');
+Route::put('/configuration/notification/{id}', 'Configuration\\UpdateNotificationController')->name('notification_update')->middleware('auth');
+
 Route::get('/auctions', function() {
     return \Illuminate\Support\Facades\Storage::download('auctions.csv');
 })->name('auctions')->middleware('auth');
@@ -23,18 +28,9 @@ Route::get('/fixed-prices', function() {
 Route::get('/test', function() {
     app(\App\Http\Services\DelcampeService::class)->getNotificationConfig();
     //app(\App\Http\Services\DelcampeService::class)->setNotificationSetting('Curl_Seller_Item_Update');
+    //app(\App\Http\Services\DelcampeService::class)->deleteNotificationSetting(134458);
 });
 
-Route::post('/endpoint/delcampe/items/update/{token}', function(\Illuminate\Http\Request $request) {
-    $logfileName = storage_path().'/app/log/feedbackFromDelcampeApi' . date('Ymd') . '.log';
+Route::post('/endpoint/delcampe/items/update/{token}', 'Endpoints\\Delcampe\\SellerItemUpdateEndpointController');
 
-    if (isset($_POST['delcampeNotification'])) {
-        $dataWrite = $_POST['delcampeNotification'];
-    }
-
-    $logFileHandler = fopen($logfileName, 'a');
-    //chmod ($logFileHandler, 0666);
-    fwrite($logFileHandler, date('H:i:s') . ' | ' . var_dump($request) . "\n");
-    fclose($logFileHandler);
-});
 Auth::routes(['register' => false]);
