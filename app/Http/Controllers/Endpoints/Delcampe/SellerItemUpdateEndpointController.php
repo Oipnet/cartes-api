@@ -58,6 +58,7 @@ class SellerItemUpdateEndpointController
                 'price_increment' => $itemFromXml['price_increment'],
                 'currency' => $itemFromXml['currency'],
                 'date_end' => Carbon::createFromFormat('Y-m-d H:i:s', $itemFromXml['date_end']),
+                'prefered_end_hour' => $itemFromXml['prefered_end_hour'],
                 'duration' => $itemFromXml['duration'],
                 'renew' => $itemFromXml['renew'],
                 'bids' => $itemFromXml['bids'],
@@ -73,12 +74,5 @@ class SellerItemUpdateEndpointController
                 'option_topmain' => $itemFromXml['option_topmain'] ?? false,
             ]
         );
-
-        $logfileName = storage_path().'/app/log/feedbackFromDelcampeApi' . date('Ymd') . '.log';
-
-        $logFileHandler = fopen($logfileName, 'a');
-        //chmod ($logFileHandler, 0666);
-        fwrite($logFileHandler, date('H:i:s') . ' | ' . json_encode($itemFromXml) . "\n");
-        fclose($logFileHandler);
     }
 }

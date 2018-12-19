@@ -212,4 +212,53 @@ class DelcampeService
             'option_topmain' => ['uses' => 'Notification_Data.body.item.option_topmain'],
         ]);
     }
+
+    public function sendItem(Item $item)
+    {
+        $this->client->post('http://rest.delcampe.net/item',
+            ['query' => [
+                'token' => $this->token,
+            ],
+            'form_params' => [
+                'id_country'                 => $item->id_country,
+                'id_category'                => $item->id_category,
+                'price_starting'             => $item->price_starting,
+                'price_increment'            => $item->price_increment,
+                'currency'                   => $item->currency,
+                'title'                      => $item->title,
+                'personal_reference'         => $item->personal_reference,
+
+                //OPTIONAL DATA
+                'duration'                   => $item->duration,
+                'description'                => $item->description,
+                'renew'                      => $item->renew,
+                'option_lastminutebidding'   => false,
+                'option_privatebidding'      => false,
+                'option_subtitle'            => false,
+                'option_boldtitle'           => false,
+                'option_highlight'           => false,    // related to "Colour background" fee
+                'option_coloredborder'       => false,
+                'option_toplisting'          => false,    // related to "Highlighting" fee
+                'option_topmain'             => false,    // related to "Item on the homepage" fee
+                'option_keepoptionsonrenewal'=> false,
+                'prefered_end_hour'          => $item->prefered_end_hour,
+            ],
+            ]);
+    }
+
+    public function updateItem($item)
+    {
+        $response = $this->client->put('http://rest.delcampe.net/item/'.$item->id_item, ['query' =>
+        [
+            'token' => $this->token,
+        ],
+        'form_params' => [
+            'title' => $item->title,
+            'description' => $item->description,
+            'price_starting' => $item->price_starting,
+        ]
+        ]);
+
+        dd($response->getBody()->getContents());
+    }
 }

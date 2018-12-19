@@ -21,7 +21,8 @@ class HomeController
     public function __invoke()
     {
         $countItems = Item::all()->count();
+        $countClosedItems = Item::isClosed()->count();
 
-        return $this->view->make('homepage', compact('countItems'));
+        return $this->view->make('homepage', compact('countItems', 'countClosedItems'));
     }
 }

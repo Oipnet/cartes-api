@@ -12,7 +12,7 @@ class Item extends Model
         'description', 'price_starting', 'fixed_price', 'price_present', 'price_increment',
         'currency', 'date_end', 'duration', 'renew', 'bids', 'option_boldtitle', 'option_coloredborder',
         'option_highlight', 'option_keepoptionsonrenewal', 'option_lastminutebidding', 'option_privatebidding',
-        'option_subtitle', 'option_topcategory', 'option_toplisting',  'option_topmain'
+        'option_subtitle', 'option_topcategory', 'option_toplisting',  'option_topmain', 'prefered_end_hour', 'is_close'
     ];
 
     protected $dates = [
@@ -24,7 +24,12 @@ class Item extends Model
         return $query->where('id_item', '=', $id);
     }
 
-    public function setPriceStratingAttribute($value)
+    public function scopeIsClosed($query)
+    {
+        return $query->where('is_closed', '=', true);
+    }
+
+    public function setPriceStartingAttribute($value)
     {
         $this->attributes['price_starting'] = floatval($value) * 100;
     }
@@ -42,5 +47,25 @@ class Item extends Model
     public function setPriceIncrementAttribute($value)
     {
         $this->attributes['price_increment'] = floatval($value) * 100;
+    }
+
+    public function getPriceStartingAttribute($value)
+    {
+        return $value / 100;
+    }
+
+    public function getFixedPriceAttribute($value)
+    {
+        return $value / 100;;
+    }
+
+    public function getPricePresentAttribute($value)
+    {
+        return $value / 100;
+    }
+
+    public function getPriceIncrementAttribute($value)
+    {
+        return $value / 100;
     }
 }

@@ -13,10 +13,15 @@ use Orchestra\Parser\Xml\Facade as XmlParser;
 */
 
 Route::get('/', 'HomeController')->middleware('auth');
+
 Route::get('/configuration/notification', 'Configuration\\ListNotificationController')->name('notification_index')->middleware('auth');
 Route::delete('/configuration/notification/{id}', 'Configuration\\DeleteNotificationController')->name('notification_delete')->middleware('auth');
 Route::get('/configuration/notification/{id}', 'Configuration\\UpdateNotificationController')->name('notification_edit')->middleware('auth');
 Route::put('/configuration/notification/{id}', 'Configuration\\UpdateNotificationController')->name('notification_update')->middleware('auth');
+
+Route::get('/items', 'Item\\ListItemController')->name('item_index')->middleware('auth');
+Route::get('/items/{id}', 'Item\\UpdateItemController')->name('item_edit')->middleware('auth');
+Route::put('/items/{id}', 'Item\\UpdateItemController')->name('item_update')->middleware('auth');
 
 Route::get('/auctions', function() {
     return \Illuminate\Support\Facades\Storage::download('auctions.csv');
