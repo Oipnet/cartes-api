@@ -22,6 +22,11 @@
                         <a href="#!" class="dropdown-trigger d" data-target="dropdown-config">@lang('navbar.configuration.title')</a>
                         <ul id="dropdown-config" class="dropdown-content">
                             <li><a href="{{ route('notification_index') }}">@lang('navbar.configuration.notifications')</a></li>
+                            <li><a href="{{ route('notification_index') }}">@lang('navbar.configuration.notifications')</a></li>
+                            <li><a href="{{ route('notification_index') }}">@lang('navbar.configuration.notifications')</a></li>
+                            <li><a href="{{ route('notification_index') }}">@lang('navbar.configuration.notifications')</a></li>
+                            <li><a href="{{ route('notification_index') }}">@lang('navbar.configuration.notifications')</a></li>
+                            <li><a href="{{ route('notification_index') }}">@lang('navbar.configuration.notifications')</a></li>
                         </ul>
                     </li>
                     <li>
@@ -51,7 +56,9 @@
             </li>
         @endauth
     </ul>
-    @yield('content')
+    <div class="container" id="app">
+        @yield('content')
+    </div>
     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
         @csrf
     </form>

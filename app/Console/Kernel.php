@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\ListDelcampeAuctions;
+use App\Console\Commands\ListDelcampeCategories;
 use App\Console\Commands\ListDelcampeFixedPrice;
 use App\Console\Commands\ListDelcampeNotificationConfiguration;
 use Illuminate\Console\Scheduling\Schedule;
@@ -18,7 +19,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         ListDelcampeAuctions::class,
         ListDelcampeFixedPrice::class,
-        ListDelcampeNotificationConfiguration::class
+        ListDelcampeNotificationConfiguration::class,
+        ListDelcampeCategories::class
     ];
 
     /**

@@ -248,7 +248,7 @@ class DelcampeService
 
     public function updateItem($item)
     {
-        $response = $this->client->put('http://rest.delcampe.net/item/'.$item->id_item, ['query' =>
+        $this->client->put('http://rest.delcampe.net/item/'.$item->id_item, ['query' =>
         [
             'token' => $this->token,
         ],
@@ -258,7 +258,23 @@ class DelcampeService
             'price_starting' => $item->price_starting,
         ]
         ]);
+    }
 
-        dd($response->getBody()->getContents());
+    public function getCategories($idParent = 0)
+    {
+        $response = $this->client->get('http://rest.delcampe.net/category', [
+            'query' => [
+                'token' => $this->token,
+                'lang' => 'F',
+                'idParent' => $idParent
+            ]
+        ]);
+
+        $xml = XmlParser::extract($response->getBody()->getContents());
+        $response = collect($xml->parse([
+            'categories' => ['uses' => 'Notification_Data.body.category[id,id_site,name,id_parent,child,selectable]']
+        ])['categories']);
+
+        return $response;
     }
 }

@@ -1,7 +1,6 @@
 @extends('layout.base')
 
 @section('content')
-<div class="container">
     <div class="row">
         <div class="s8">
             <div class="card">
@@ -33,5 +32,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

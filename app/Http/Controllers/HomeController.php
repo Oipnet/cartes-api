@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Item;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Cache;
+use Psr\SimpleCache\CacheInterface;
 
 class HomeController
 {
@@ -12,6 +14,7 @@ class HomeController
      * @var Factory
      */
     private $view;
+
 
     public function __construct(Factory $view)
     {
@@ -23,6 +26,8 @@ class HomeController
         $countItems = Item::all()->count();
         $countClosedItems = Item::isClosed()->count();
 
-        return $this->view->make('homepage', compact('countItems', 'countClosedItems'));
+        $categories = Cache::get('categories');
+
+        return $this->view->make('homepage', compact('countItems', 'countClosedItems', 'categories'));
     }
 }
